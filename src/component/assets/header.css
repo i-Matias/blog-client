@@ -1,0 +1,28 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f0f0f0;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.breadcrumbs-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.search-bar {
+    margin-left: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.search-bar:focus {
+    outline: none;
+}
