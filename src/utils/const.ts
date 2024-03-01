@@ -7,6 +7,12 @@ export interface Post {
   content: string;
 }
 
+export interface User {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export const posts = [
   {
     title: "Post Title 1",
