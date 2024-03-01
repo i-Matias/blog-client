@@ -1,16 +1,52 @@
-import Sheet from "@mui/joy/Sheet";
-import Typography from "@mui/joy/Typography";
+import Button from "@mui/joy/Button";
 import FormControl from "@mui/joy/FormControl";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
-import Button from "@mui/joy/Button";
 import Link from "@mui/joy/Link";
-import { FC } from "react";
+import Sheet from "@mui/joy/Sheet";
+import Typography from "@mui/joy/Typography";
+import { FC, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { login, register } from "../store/features/authSlice";
+import { useNavigate } from "react-router-dom";
 interface SignFormProps {
   isLoggingIn: boolean;
 }
 
 const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  //const isError = useAppSelector((state) => state.auth.isError);
+  const dispatch = useAppDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.name, e.target.value);
+
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleClick = () => {
+    if (isLoggingIn) {
+      dispatch(login(formData)).then((res) => {
+        console.log(res.payload);
+        if (res.payload) {
+          navigate("/");
+        }
+      });
+    } else {
+      dispatch(register(formData)).then((res) => {
+        console.log(res.payload);
+        if (res.payload) {
+          navigate("/login");
+        }
+      });
+    }
+  };
+
   return (
     <>
       <Sheet
@@ -40,7 +76,7 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
             </Typography>
           )}
         </div>
-        <FormControl>
+        <FormControl component="form">
           {!isLoggingIn && (
             <>
               <FormLabel>Username</FormLabel>
@@ -49,6 +85,7 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
                 name="username"
                 type="text"
                 placeholder="johndoe"
+                onChange={handleChange}
               />
             </>
           )}
@@ -58,6 +95,7 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
             name="email"
             type="email"
             placeholder="johndoe@email.com"
+            onChange={handleChange}
           />
         </FormControl>
         <FormControl>
@@ -67,9 +105,14 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
             name="password"
             type="password"
             placeholder="password"
+            onChange={handleChange}
           />
         </FormControl>
-        <Button sx={{ mt: 1 /* margin top */ }}>
+        <Button
+          type="submit"
+          sx={{ mt: 1 /* margin top */ }}
+          onClick={handleClick}
+        >
           {isLoggingIn ? "Log in" : "Sign up"}
         </Button>
         <Typography
