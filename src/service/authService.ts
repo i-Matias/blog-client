@@ -1,11 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { User } from "../utils/const";
 import API from "../api/createApi";
+import { User } from "../utils/const";
 
 const register = async (user: User) => {
-  const response = await API.post("/register", user, {
+  const response = await API.post("/v1/users/register", user, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 
@@ -17,17 +17,17 @@ const register = async (user: User) => {
 };
 
 const login = async (user: User) => {
-  const response = await API.post("/login", user, {
+  const response = await API.post("/v1/users/login", user, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   });
 
-  if (response.status !== 200) {
+  if (response.status !== 201) {
     throw new Error(response.data);
   }
 
-  const { token } = response.data;
+  const token = response.data.token;
   localStorage.setItem("token", token);
 
   return response.data;

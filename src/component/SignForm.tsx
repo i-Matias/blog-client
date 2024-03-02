@@ -6,9 +6,9 @@ import Link from "@mui/joy/Link";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
 import { FC, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import { login, register } from "../store/features/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { login, register } from "../store/features/authSlice";
 interface SignFormProps {
   isLoggingIn: boolean;
 }
@@ -24,22 +24,18 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.name, e.target.value);
-
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleClick = () => {
     if (isLoggingIn) {
       dispatch(login(formData)).then((res) => {
-        console.log(res.payload);
         if (res.payload) {
           navigate("/");
         }
       });
     } else {
       dispatch(register(formData)).then((res) => {
-        console.log(res.payload);
         if (res.payload) {
           navigate("/login");
         }
@@ -48,7 +44,7 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
   };
 
   return (
-    <>
+    <div>
       <Sheet
         sx={{
           width: 300,
@@ -129,7 +125,7 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
           {isLoggingIn ? "Don't have an account?" : "Already have an account?"}
         </Typography>
       </Sheet>
-    </>
+    </div>
   );
 };
 
