@@ -9,15 +9,29 @@ import ListItemDecorator from "@mui/joy/ListItemDecorator";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
 import Textarea from "@mui/joy/Textarea";
-import * as React from "react";
+import { ChangeEvent, FC, useState } from "react";
 
-export default function ExampleTextareaComment() {
-  const [italic, setItalic] = React.useState(false);
-  const [fontWeight, setFontWeight] = React.useState("normal");
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+interface TextareaCommentProps {
+  handleChange: (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => void;
+  content: string;
+}
+
+const TextareaComment: FC<TextareaCommentProps> = ({
+  handleChange,
+  content,
+}) => {
+  const [italic, setItalic] = useState(false);
+  const [fontWeight, setFontWeight] = useState("normal");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   return (
     <FormControl>
       <Textarea
+        onChange={handleChange}
+        value={content}
+        name="content"
         placeholder="Type something here…"
         minRows={3}
         endDecorator={
@@ -82,4 +96,6 @@ export default function ExampleTextareaComment() {
       />
     </FormControl>
   );
-}
+};
+
+export default TextareaComment;

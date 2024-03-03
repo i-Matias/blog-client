@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Post } from "../../utils/const";
 import postService from "../../service/postService";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 interface PostState {
   posts: Post[];
@@ -20,10 +21,16 @@ const initialState: PostState = {
   message: "",
 };
 
-export const post = createAsyncThunk(
+export const publishPost = createAsyncThunk(
   "/post",
-  async (post: Post, { rejectWithValue }) => {
+  async (formData: FormData, { rejectWithValue }) => {
     try {
+      const post = {
+        title: formData.get("title") as string,
+        content: formData.get("content") as string,
+        tags: (formData.get("tags") as string).split(","),
+        image: formData.get("image") as string,
+      };
       return await postService.post(post);
     } catch (err: any) {
       const message = err.toString();
@@ -77,15 +84,15 @@ export const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(post.pending, (state) => {
+      .addCase(publishPost.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(post.fulfilled, (state, { payload }) => {
+      .addCase(publishPost.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.message = "Post created successfully";
       })
-      .addCase(post.rejected, (state, { payload }) => {
+      .addCase(publishPost.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = true;
       })

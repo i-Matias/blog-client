@@ -1,12 +1,3 @@
-export interface Post {
-  title: string;
-  user: string;
-  date: string;
-  image: string;
-  tags: string[];
-  content: string;
-}
-
 export interface User {
   username: string;
   email: string;
@@ -14,12 +5,13 @@ export interface User {
 }
 
 export interface Post {
+  id?: number;
+  user?: string;
   title: string;
-  user: string;
-  date: string;
+  content: string;
+  date?: string;
   image: string;
   tags: string[];
-  content: string;
 }
 
 export const posts = [

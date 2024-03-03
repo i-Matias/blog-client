@@ -1,21 +1,14 @@
 import { FC } from "react";
 import "./assets/post.card.css";
 import { useNavigate } from "react-router-dom";
+import { Post } from "../utils/const";
 
 interface PostCardProps {
-  index: number;
-  post: {
-    title: string;
-    user: string;
-    date: string;
-    image: string;
-    tags: string[];
-    content: string;
-  };
+  post: Post;
   isReadMorePost?: boolean;
 }
 
-const PostCard: FC<PostCardProps> = ({ index, post, isReadMorePost }) => {
+const PostCard: FC<PostCardProps> = ({ post, isReadMorePost }) => {
   const navigate = useNavigate();
 
   const handleClick = (index: number) => {
@@ -24,15 +17,15 @@ const PostCard: FC<PostCardProps> = ({ index, post, isReadMorePost }) => {
 
   return (
     <div
-      key={index}
+      key={post.id}
       className={isReadMorePost ? "read-more-post post" : "post"}
-      onClick={() => handleClick(index)}
+      onClick={() => handleClick(post.id!)}
     >
       <h2>{post.title}</h2>
       <p>
         By {post.user} on {post.date}
       </p>
-      <img src={post.image} alt="Post" />
+      <img src={post.image as string} alt="Post" />
       <div className="tags">
         {post.tags.map((tag, i) => (
           <span key={i}>{tag}</span>

@@ -1,11 +1,11 @@
-import * as React from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { FC } from "react";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,21 +18,14 @@ const MenuProps = {
   },
 };
 
-const names = ["music", "art", "movie", "book"];
+const names = ["music", "news", "art"];
 
-const TagSelect = () => {
-  const [tagName, setTagName] = React.useState<string[]>([]);
+interface TagSelectProps {
+  handleChange: (event: SelectChangeEvent<typeof names>) => void;
+  tagName: string[];
+}
 
-  const handleChange = (event: SelectChangeEvent<typeof tagName>) => {
-    const {
-      target: { value },
-    } = event;
-    setTagName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
+const TagSelect: FC<TagSelectProps> = ({ handleChange, tagName }) => {
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
@@ -42,6 +35,7 @@ const TagSelect = () => {
           id="demo-multiple-checkbox"
           multiple
           value={tagName}
+          name="tags"
           onChange={handleChange}
           input={<OutlinedInput label="Tag" />}
           renderValue={(selected) => selected.join(", ")}

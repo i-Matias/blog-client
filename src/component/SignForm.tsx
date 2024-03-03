@@ -20,7 +20,6 @@ const SignForm: FC<SignFormProps> = ({ isLoggingIn }) => {
     password: "",
   });
   const navigate = useNavigate();
-  //const isError = useAppSelector((state) => state.auth.isError);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

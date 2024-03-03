@@ -10,8 +10,8 @@ const Blog = () => {
       <BlogTitle />
       <Header />
       <div className="post-grid">
-        {posts.map((post, index) => (
-          <PostCard key={index} index={index} post={post} />
+        {posts.map((post) => (
+          <PostCard post={post} />
         ))}
       </div>
     </>

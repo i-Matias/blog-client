@@ -12,7 +12,9 @@ export default function ButtonIcons() {
         justifyContent: "flex-end",
       }}
     >
-      <Button startDecorator={<Publish />}>Publish</Button>
+      <Button type="submit" startDecorator={<Publish />}>
+        Publish
+      </Button>
     </Box>
   );
 }
