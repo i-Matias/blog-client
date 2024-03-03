@@ -1,0 +1,38 @@
+/* PostForm Styles */
+.post-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.post-title,
+.post-content,
+.post-tags-img {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.post-title input,
+.post-content input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.post-tags-img {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .post-tags-img {
+        flex-direction: column;
+    }
+}

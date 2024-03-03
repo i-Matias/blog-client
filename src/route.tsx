@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Blog from "./pages/Blog";
+import PostBlog from "./pages/PostBlog";
+import ReadMore from "./pages/ReadMore";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
-import ReadMore from "./pages/ReadMore";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/post/:id",
     element: <ReadMore />,
+  },
+  {
+    path: "/post",
+    element: <PostBlog />,
   },
 ]);
 

@@ -2,8 +2,11 @@ import { Input } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import "./assets/header.css";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const Header = () => {
+  const isLoggedIn = useAppSelector((state) => state.auth.isSuccess);
+
   return (
     <div className="header-container">
       <div className="spacer"></div>
@@ -24,6 +27,11 @@ const Header = () => {
         >
           Contact
         </Link>
+        {isLoggedIn && (
+          <Link underline="hover" color="inherit" href="/post">
+            Publish
+          </Link>
+        )}
       </Breadcrumbs>
 
       <div className="search-bar">

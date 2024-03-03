@@ -13,6 +13,15 @@ export interface User {
   password: string;
 }
 
+export interface Post {
+  title: string;
+  user: string;
+  date: string;
+  image: string;
+  tags: string[];
+  content: string;
+}
+
 export const posts = [
   {
     title: "Post Title 1",
