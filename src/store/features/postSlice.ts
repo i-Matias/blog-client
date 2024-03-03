@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Post } from "../../utils/const";
 import postService from "../../service/postService";
-import { useAppSelector } from "../../hooks/reduxHooks";
+import { Post } from "../../utils/const";
 
 interface PostState {
   posts: Post[];

@@ -1,6 +1,6 @@
 import { InputLabel, SelectChangeEvent, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch } from "../hooks/reduxHooks";
 import { publishPost } from "../store/features/postSlice";
 import { Post } from "../utils/const";
 import "./assets/post.form.css";
