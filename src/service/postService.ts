@@ -1,10 +1,10 @@
 import API from "../api/createApi";
-import { Post } from "../utils/const";
 
-const post = async (post: Post) => {
-  const response = await API.post("/v1/posts", post, {
+const post = async (formData: FormData) => {
+  const response = await API.post("/v1/posts/", formData, {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 

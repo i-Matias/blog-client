@@ -24,13 +24,7 @@ export const publishPost = createAsyncThunk(
   "/post",
   async (formData: FormData, { rejectWithValue }) => {
     try {
-      const post = {
-        title: formData.get("title") as string,
-        content: formData.get("content") as string,
-        tags: (formData.get("tags") as string).split(","),
-        image: formData.get("image") as string,
-      };
-      return await postService.post(post);
+      return await postService.post(formData);
     } catch (err: any) {
       const message = err.toString();
       return rejectWithValue({ message });

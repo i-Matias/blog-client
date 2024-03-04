@@ -11,7 +11,13 @@ const BlogTitle = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/login");
+    if (isLoggedIn) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("persist:root");
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (

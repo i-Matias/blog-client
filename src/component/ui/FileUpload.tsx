@@ -1,7 +1,8 @@
-import { FC } from "react";
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+import { FC } from "react";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -17,10 +18,13 @@ const VisuallyHiddenInput = styled("input")({
 
 interface InputFileUploadProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  image: string;
+  isUploaded: boolean;
 }
 
-const InputFileUpload: FC<InputFileUploadProps> = ({ handleChange, image }) => {
+const InputFileUpload: FC<InputFileUploadProps> = ({
+  handleChange,
+  isUploaded,
+}) => {
   return (
     <Button
       component="label"
@@ -28,6 +32,7 @@ const InputFileUpload: FC<InputFileUploadProps> = ({ handleChange, image }) => {
       variant="contained"
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
+      color={isUploaded ? "success" : "primary"}
     >
       Upload file
       <VisuallyHiddenInput type="file" onChange={handleChange} name="image" />

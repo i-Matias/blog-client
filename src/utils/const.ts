@@ -10,7 +10,7 @@ export interface Post {
   title: string;
   content: string;
   date?: string;
-  image: string;
+  image?: File | string;
   tags: string[];
 }
 
