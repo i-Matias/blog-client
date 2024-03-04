@@ -32,7 +32,7 @@ export const publishPost = createAsyncThunk(
   }
 );
 
-export const getPosts = createAsyncThunk("/getPosts", async () => {
+export const getPosts = createAsyncThunk("/blog", async () => {
   try {
     return await postService.getPosts();
   } catch (err: any) {
@@ -83,11 +83,14 @@ export const postSlice = createSlice({
       .addCase(publishPost.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.isError = false;
         state.message = "Post created successfully";
       })
       .addCase(publishPost.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = true;
+        state.isSuccess = false;
+        state.message = "Failed to create post";
       })
       .addCase(getPosts.pending, (state) => {
         state.isLoading = true;

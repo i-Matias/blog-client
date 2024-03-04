@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import BlogTitle from "../component/BlogTitle";
 import Header from "../component/Header";
 import PostForm from "../component/PostForm";
@@ -8,6 +9,7 @@ const PostBlog = () => {
       <BlogTitle />
       <Header />
       <PostForm />
+      <ToastContainer />
     </div>
   );
 };

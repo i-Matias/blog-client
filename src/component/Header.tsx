@@ -7,6 +7,8 @@ import { useAppSelector } from "../hooks/reduxHooks";
 const Header = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isSuccess);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {};
+
   return (
     <div className="header-container">
       <div className="spacer"></div>
@@ -35,7 +37,7 @@ const Header = () => {
       </Breadcrumbs>
 
       <div className="search-bar">
-        <Input placeholder="Search" />
+        <Input placeholder="Search" onChange={handleChange} />
       </div>
     </div>
   );

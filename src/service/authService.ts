@@ -27,8 +27,6 @@ const login = async (user: User) => {
     throw new Error(response.data);
   }
 
-  console.log(response.data.token);
-
   const token = response.data.token;
   localStorage.setItem("token", token);
 

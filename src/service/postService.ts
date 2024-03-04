@@ -16,11 +16,17 @@ const post = async (formData: FormData) => {
 };
 
 const getPosts = async () => {
-  const response = await API.get("/v1/posts");
+  const response = await API.get(`/v1/posts?page=${0}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
   if (response.status !== 200) {
     throw new Error(response.data);
   }
+
+  console.log("res", response.data);
 
   return response.data;
 };

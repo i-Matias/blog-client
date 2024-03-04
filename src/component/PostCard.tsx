@@ -1,7 +1,7 @@
 import { FC } from "react";
-import "./assets/post.card.css";
 import { useNavigate } from "react-router-dom";
 import { Post } from "../utils/const";
+import "./assets/post.card.css";
 
 interface PostCardProps {
   post: Post;
@@ -17,18 +17,18 @@ const PostCard: FC<PostCardProps> = ({ post, isReadMorePost }) => {
 
   return (
     <div
-      key={post.id}
+      key={post.postId}
       className={isReadMorePost ? "read-more-post post" : "post"}
-      onClick={() => handleClick(post.id!)}
+      onClick={() => handleClick(post.postId!)}
     >
       <h2>{post.title}</h2>
       <p>
-        By {post.user} on {post.date}
+        By {post.createdBy} on {post.createdAt.substring(0, 10)}
       </p>
-      <img src={post.image as string} alt="Post" />
+      <img src={post.image[0].fileName} alt={post.image[0].alt} />
       <div className="tags">
-        {post.tags.map((tag, i) => (
-          <span key={i}>{tag}</span>
+        {Array(post.tagsName).map((tag, i) => (
+          <span key={i}>{`#${tag}`}</span>
         ))}
       </div>
       <p id={isReadMorePost ? "content" : ""}>

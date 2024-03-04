@@ -1,8 +1,9 @@
 import { InputLabel, SelectChangeEvent, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { useAppDispatch } from "../hooks/reduxHooks";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { publishPost } from "../store/features/postSlice";
-import { Post } from "../utils/const";
 import "./assets/post.form.css";
 import ContentTextField from "./ui/ContentTextArea";
 import InputFileUpload from "./ui/FileUpload";
@@ -10,13 +11,21 @@ import PublishButton from "./ui/PublishButton";
 import TagSelect from "./ui/TagSelect";
 
 const PostForm = () => {
-  const [post, setPost] = useState<Post>({
+  const [post, setPost] = useState<{
+    title: string;
+    tags: string[];
+    content: string;
+  }>({
     title: "",
     tags: [],
     content: "",
   });
   const [file, setFile] = useState<FileList | null>(null);
+  const { isSuccess, isError, message } = useAppSelector((state) => state.post);
   const dispatch = useAppDispatch();
+
+  const succesNotify = () => toast.success(message);
+  const errorNotify = () => toast.error(message);
 
   const handleChange = (
     e:
@@ -45,8 +54,14 @@ const PostForm = () => {
     formData.append("content", post.content);
     formData.append("tags", post.tags.join(","));
     if (file) formData.append("image", file[0]);
-
     dispatch(publishPost(formData));
+    if (isSuccess) {
+      succesNotify();
+    } else if (isError) {
+      errorNotify();
+    }
+    setPost({ title: "", tags: [], content: "" });
+    setFile(null);
   };
   return (
     <form method="post" className="post-container" onSubmit={handleSubmit}>
